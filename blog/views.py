@@ -11,3 +11,10 @@ class PostListView(generic.ListView):
     
     context_object_name = 'posts'
 
+
+class PostDetailsView(generic.DeleteView):
+    model = BlogPost
+    
+    template_name = 'blog/post_details.html'
+    
+    

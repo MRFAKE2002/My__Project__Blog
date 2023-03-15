@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+<!-- Django filters -->
+{% load i18n %}
+
+<!-- My filters -->
+
+
+{% block title %}
+
+    {% trans 'post details'%}
+
+{% endblock %}
+
+{% block body %}
+
+    {{post.title}}
+    {{post.content}}
+    {{post.author}}
+
+{% endblock %}
