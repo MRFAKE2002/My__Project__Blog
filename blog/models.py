@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.shortcuts import reverse
-
+from django.contrib.auth import get_user_model
 
 class BlogPost(models.Model):
     
@@ -11,7 +11,11 @@ class BlogPost(models.Model):
         ('pu', 'published'),
     ]
     
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts', verbose_name=_('author'))
+    
     title = models.CharField(_('title'), max_length=250)
+    
+    slug = models.SlugField(_('slug'), unique=True, max_length=250)
     
     content = models.TextField(_('content'))
     
