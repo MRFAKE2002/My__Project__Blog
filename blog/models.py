@@ -13,7 +13,7 @@ class BlogPost(models.Model):
     
     title = models.CharField(_('title'), max_length=250)
     
-    content = models.TextChoices(_('content'))
+    content = models.TextField(_('content'))
     
     published = models.DateTimeField(_('published'), default = timezone.now())
     
@@ -23,7 +23,7 @@ class BlogPost(models.Model):
     
     is_active = models.BooleanField(_('active'), default = True)
     
-    status = models.CharField(_('status'), choices=STATUS_CHOICES)
+    status = models.CharField(_('status'), choices=STATUS_CHOICES, max_length=10)
     
     def __str__(self):
         return self.title
