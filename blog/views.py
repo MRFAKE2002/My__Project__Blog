@@ -5,7 +5,7 @@ from .models import BlogPost
 
 class PostListView(generic.ListView):
     # model = BlogPost
-    queryset = BlogPost.objects.filter({'status':'pu', 'is_active':'True'}).order_by('published')
+    queryset = BlogPost.objects.filter(status='pu').order_by('published')
     
     template_name = 'blog/post_list.html'
     
@@ -17,4 +17,5 @@ class PostDetailsView(generic.DeleteView):
     
     template_name = 'blog/post_details.html'
     
+    context_object_name = 'post'
     
