@@ -19,6 +19,8 @@ class BlogPost(models.Model):
     
     content = models.TextField(_('content'))
     
+    image = models.ImageField(_('image'), upload_to='media')
+    
     published = models.DateTimeField(_('published'), default = timezone.now())
     
     datetime_creation = models.DateTimeField(_('datetime_creation'), auto_now_add = True)
