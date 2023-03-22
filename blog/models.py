@@ -7,8 +7,8 @@ from django.contrib.auth import get_user_model
 class BlogPost(models.Model):
     
     STATUS_CHOICES = [
-        ('dr', 'draft'),
-        ('pu', 'published'),
+        ('dr', _('draft')),
+        ('pu', _('published')),
     ]
     
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='posts', verbose_name=_('author'))
@@ -30,6 +30,12 @@ class BlogPost(models.Model):
     is_active = models.BooleanField(_('active'), default = True)
     
     status = models.CharField(_('status'), choices=STATUS_CHOICES, max_length=10)
+    
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = _('Blog Post')
+        verbose_name_plural = _('Blog Posts')
     
     def __str__(self):
         return self.title
