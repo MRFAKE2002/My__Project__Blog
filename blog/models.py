@@ -6,6 +6,10 @@ from django.contrib.auth import get_user_model
 
 class BlogPost(models.Model):
     
+    """
+    This is the class for creating a new blog post.
+    """
+    
     STATUS_CHOICES = [
         ('dr', _('draft')),
         ('pu', _('published')),
@@ -43,4 +47,34 @@ class BlogPost(models.Model):
     def get_absolute_url(self):
         return reverse("blog:post_details", args=[ self.pk ])
 
+
+
+class BlogPostComment(models.Model):
     
+    """
+    This class is for creating a comment on a blog post.
+    """
+    
+    STARS_CHOICES = [
+        ('1', _("worst")),
+        ('2', _("bad")),
+        ('3', _("normal")),
+        ('4', _("good")),
+        ('5', _("perfect")),
+    ]
+    
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name=_('User'), related_name='comments')
+    
+    post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, verbose_name=_('BlogPost'), related_name='comments')
+    
+    description = models.TextField(_('Description'))
+    
+    stars = models.CharField(_('Stars'), max_length=10, choices=STARS_CHOICES)
+    
+    is_active = models.BooleanField(_('is_active'))
+
+    published = models.DateTimeField(_('published'), default = timezone.now())
+    
+    datetime_creation = models.DateTimeField(_('datetime_creation'), auto_now_add = True)
+    
+    datetime_modified = models.DateTimeField(_('datetime_modified'), auto_now = True)
