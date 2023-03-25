@@ -41,7 +41,7 @@
                           <li><a href="#">{{ post.published|to_jalali:'%Y %B %d'|number }}</a></li>
                           <li><a href="#">{{ post.comments.all|length }} {% trans "Comments" %}</a></li>
                         </ul>
-                        <p>{{ post.content|truncatewords:10 }}</p>
+                        <p>{{ post.content|truncatewords:10|safe }}</p>
                       </div>
                     </div>
                   </div>

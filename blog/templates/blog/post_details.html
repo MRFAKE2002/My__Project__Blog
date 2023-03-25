@@ -55,7 +55,7 @@
                           <li><a href="#">{{ post.comments.all|length }} {% trans "Comments" %}</a></li>
                         </ul>
                         <p>
-                            {{ post.content }}
+                            {{ post.content|safe }}
                         </p>
                         <div class="post-options">
                           <div class="row">
