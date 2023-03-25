@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Third party apps
+    'jalali_date',
     
     
     # My apps

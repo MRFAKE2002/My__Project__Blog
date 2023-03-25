@@ -2,6 +2,8 @@ from django.contrib import admin
 
 from .models import BlogPost, BlogPostComment
 
+from jalali_date.admin import ModelAdminJalaliMixin
+
 
 class CommentsInline(admin.TabularInline):
     model = BlogPostComment
@@ -10,7 +12,7 @@ class CommentsInline(admin.TabularInline):
 
 
 @admin.register(BlogPost)
-class BlogPostAdmin(admin.ModelAdmin):
+class BlogPostAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ['title', 'author', 'status', 'is_active']
     
     list_filter = ['published', 'status', 'is_active']
@@ -27,7 +29,7 @@ class BlogPostAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(BlogPostComment)
+@admin.register(ModelAdminJalaliMixin, BlogPostComment)
 class BlogPostCommentAdmin(admin.ModelAdmin):
     list_display = ['user', 'post', 'stars', 'is_active']
     
