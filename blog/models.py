@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 
+
 class BlogPost(models.Model):
     
     """
@@ -36,8 +37,6 @@ class BlogPost(models.Model):
     status = models.CharField(_('status'), choices=STATUS_CHOICES, max_length=10)
     
     class Meta:
-        db_table = ''
-        managed = True
         verbose_name = _('Blog Post')
         verbose_name_plural = _('Blog Posts')
     
@@ -78,3 +77,12 @@ class BlogPostComment(models.Model):
     datetime_creation = models.DateTimeField(_('datetime_creation'), auto_now_add = True)
     
     datetime_modified = models.DateTimeField(_('datetime_modified'), auto_now = True)
+
+    class Meta:
+        verbose_name = _('Blog Post Comment')
+        verbose_name_plural = _('Blog Post Comments')
+    
+
+    def __str__(self):
+        return f'user:{self.user} / post:{self.post}'
+    

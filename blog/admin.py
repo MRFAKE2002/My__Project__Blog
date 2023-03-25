@@ -5,7 +5,7 @@ from .models import BlogPost, BlogPostComment
 from jalali_date.admin import ModelAdminJalaliMixin
 
 
-class CommentsInline(admin.TabularInline):
+class CommentsInline(ModelAdminJalaliMixin, admin.TabularInline):
     model = BlogPostComment
     list_display = ['user', 'description', 'stars', 'is_active']
     extra = 0
@@ -24,7 +24,7 @@ class BlogPostAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     prepopulated_fields = {'slug':['title']}
     
     inlines = [
-    CommentsInline,
+        CommentsInline,
     ]
 
 
