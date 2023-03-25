@@ -3,8 +3,11 @@
 <!-- Django filters -->
 {% load i18n %}
 
-<!-- My filters -->
+<!-- Third party filters -->
+{% load jalali_tags %}
 
+<!-- My filters -->
+{% load persian_translate_tags %}
 
 {% block title %}
 
@@ -46,24 +49,16 @@
                       </div>
                       <div class="down-content">
                         <span>{{ post.title }}</span>
-                        <a href="post-details.html"><h4>Aenean pulvinar gravida sem nec</h4></a>
                         <ul class="post-info">
                           <li><a href="#">{{ post.author }}</a></li>
-                          <li><a href="#"> {{ post.published }}</a></li>
-                          <li><a href="#">10 Comments</a></li>
+                          <li><a href="#"> {{ post.published|to_jalali:'%Y %B %d'|number }}</a></li>
+                          <li><a href="#">{{ post.comments.all|length }} {% trans "Comments" %}</a></li>
                         </ul>
                         <p>
                             {{ post.content }}
                         </p>
                         <div class="post-options">
                           <div class="row">
-                            <div class="col-6">
-                              <ul class="post-tags">
-                                <li><i class="fa fa-tags"></i></li>
-                                <li><a href="#">Best Templates</a>,</li>
-                                <li><a href="#">TemplateMo</a></li>
-                              </ul>
-                            </div>
                             <div class="col-6">
                               <ul class="post-share">
                                 <li><i class="fa fa-share-alt"></i></li>
@@ -76,30 +71,34 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-12">
-                    <div class="sidebar-item comments">
-                      <div class="sidebar-heading">
-                        <h2>4 comments</h2>
-                      </div>
-                      <div class="content">
-                        <ul>
-                          <li>
-                            <div class="author-thumb">
-                              <img src="assets/images/comment-author-01.jpg" alt="">
-                            </div>
-                            <div class="right-content">
-                              <h4>Charles Kate<span>May 16, 2020</span></h4>
-                              <p>Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>
-                            </div>
-                          </li>
-                        </ul>
+                  {% for comment in post.comments.all %}
+                    <div class="col-lg-12">
+                      <div class="sidebar-item comments">
+                        <div class="sidebar-heading">
+                          <h2>{{ post.comments.all|length }} {% trans "Comments" %}</h2>
+                        </div>
+                        <div class="content">
+                          <ul>
+                            <li>
+                              <div class="author-thumb">
+                                <img src="assets/images/comment-author-01.jpg" alt="">
+                              </div>
+                              <div class="right-content">
+                                <h4>{{ comment.user.username }}<span>{{ comment.published|to_jalali:'%Y %B %d'|number }}</span></h4>
+                                <p>
+                                  {{ comment.description|linebreaks }}
+                                </p>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  {% endfor %}
                   <div class="col-lg-12">
                     <div class="sidebar-item submit-comment">
                       <div class="sidebar-heading">
-                        <h2>Your comment</h2>
+                        <h2>{% trans "Your comment" %}</h2>
                       </div>
                       <div class="content">
                         <form id="comment" action="#" method="post">
@@ -126,7 +125,7 @@
                             </div>
                             <div class="col-lg-12">
                               <fieldset>
-                                <button type="submit" id="form-submit" class="main-button">Submit</button>
+                                <button type="submit" id="form-submit" class="main-button">{% trans "Submit" %}</button>
                               </fieldset>
                             </div>
                           </div>

@@ -1,6 +1,6 @@
 from django import template
 
-register = template.library()
+register = template.Library()
 
 @register.filter
 def number(value):

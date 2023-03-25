@@ -3,7 +3,11 @@
 <!-- Django filters -->
 {% load i18n %}
 
+<!-- Third party filters -->
+{% load jalali_tags %}
+
 <!-- My filters -->
+{% load persian_translate_tags %}
 
 
 {% block title %}
@@ -34,10 +38,10 @@
                         </a>
                         <ul class="post-info">
                           <li><a href="#">{{ post.author }}</a></li>
-                          <li><a href="#">{{ post.published }}</a></li>
-                          <li><a href="#">12 {% trans "Comments" %}</a></li>
+                          <li><a href="#">{{ post.published|to_jalali:'%Y %B %d'|number }}</a></li>
+                          <li><a href="#">{{ post.comments.all|length }} {% trans "Comments" %}</a></li>
                         </ul>
-                        <p>{{ post.content|truncatewords:10|linebreaks }}</p>
+                        <p>{{ post.content|truncatewords:10 }}</p>
                       </div>
                     </div>
                   </div>
