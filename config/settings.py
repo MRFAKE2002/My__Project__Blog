@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
     'pages.apps.PagesConfig',
+    'utils.apps.UtilsConfig',
 
 ]
 

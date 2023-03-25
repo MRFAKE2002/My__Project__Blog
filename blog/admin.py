@@ -29,8 +29,8 @@ class BlogPostAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 
 
 
-@admin.register(ModelAdminJalaliMixin, BlogPostComment)
-class BlogPostCommentAdmin(admin.ModelAdmin):
+@admin.register(BlogPostComment)
+class BlogPostCommentAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ['user', 'post', 'stars', 'is_active']
     
     list_filter = ['published', 'is_active']
