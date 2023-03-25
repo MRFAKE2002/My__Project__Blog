@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     
     # Third party apps
     'jalali_date',
-    
+    'ckeditor',
     
     # My apps
     'accounts.apps.AccountsConfig',
@@ -145,6 +145,7 @@ LOCALE_PATHS = (
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR, "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media
 MEDIA_URL = '/media/'

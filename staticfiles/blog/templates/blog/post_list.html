@@ -1,0 +1,75 @@
+{% extends '_base.html' %}
+
+<!-- Django filters -->
+{% load i18n %}
+
+<!-- Third party filters -->
+{% load jalali_tags %}
+
+<!-- My filters -->
+{% load persian_translate_tags %}
+
+
+{% block title %}
+
+    {% trans 'post list'%}
+
+{% endblock %}
+
+{% block body %}
+
+  <section class="blog-posts grid-system">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="all-blog-posts">
+              <div class="row">
+                {% for post in posts %}
+                  <div class="col-lg-6">
+                    <div class="blog-post">
+                      <div class="blog-thumb">
+                        <a href="{{ post.get_absolute_url }}">
+                          <img src="{{ post.image.url }}" alt="">
+                        </a>
+                      </div>
+                      <div class="down-content">
+                        <a href="{{ post.get_absolute_url }}">
+                          <span>{{ post.title }}</span>
+                        </a>
+                        <ul class="post-info">
+                          <li><a href="#">{{ post.author }}</a></li>
+                          <li><a href="#">{{ post.published|to_jalali:'%Y %B %d'|number }}</a></li>
+                          <li><a href="#">{{ post.comments.all|length }} {% trans "Comments" %}</a></li>
+                        </ul>
+                        <p>{{ post.content|truncatewords:10 }}</p>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+                <div class="col-12">
+                  <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-center mt_3">
+                          {% if page_obj.has_previous %}
+                              <li class="page-item">
+                                  <a class="page-link" href="?page={{ page_obj.previous_page_number}}">{% trans "Previous"%}</a>
+                              </li>
+                          {% endif %}
+                          <li class="page-item">
+                              <a class="page-link" href="#">1</a>
+                          </li>
+                          {% if page_obj.has_next %}
+                              <li class="page-item">
+                                  <a class="page-link" href="?page={{ page_obj.next_page_number}}">{% trans "Next"%}</a>
+                              </li>
+                          {% endif %}
+                      </ul>
+                  </nav>   
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  
+{% endblock %}

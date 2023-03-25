@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
 
+from ckeditor.fields import RichTextField
 
 class BlogPost(models.Model):
     
@@ -22,7 +23,7 @@ class BlogPost(models.Model):
     
     slug = models.SlugField(_('slug'), unique=True, max_length=250)
     
-    content = models.TextField(_('content'))
+    content = RichTextField(_('content')) 
     
     image = models.ImageField(_('image'), upload_to='media')
     

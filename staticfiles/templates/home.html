@@ -1,0 +1,65 @@
+{% extends '_base.html' %}
+
+<!-- Django filters -->
+{% load i18n %}
+
+<!-- Third party filters -->
+{% load jalali_tags %}
+
+<!-- My filters -->
+{% load persian_translate_tags %}
+
+
+{% block title %}
+
+    {% trans 'home'%}
+
+{% endblock %}
+
+{% block body %}
+
+  <section class="blog-posts">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="all-blog-posts">
+            <div class="row">
+              {% for post in posts %}
+                <div class="col-lg-12">
+                  <div class="blog-post">
+                    <div class="blog-thumb">
+                      <img src="{{ post.image.url }}" alt="">
+                    </div>
+                    <div class="down-content">
+                      <a href="{{ post.get_absolute_url }}"><h4><span>{{ post.title }}</span></h4></a>
+                      <ul class="post-info">
+                        <li><a href="#">{{ post.author }}</a></li>
+                        <li><a href="#">{{ post.published|to_jalali:'%Y %B %d'|number }}</a></li>
+                        <li><a href="#">{{ post.comments.all|length }} {% trans "Comments" %}</a></li>
+                      </ul>
+                      <p>
+                        {{ post.content }}
+                      </p>
+                      <div class="post-options">
+                        <div class="row">
+                          <div class="col-6">
+                            <ul class="post-share">
+                              <li><i class="fa fa-share-alt"></i></li>
+                              <li><a href="#">Facebook</a>,</li>
+                              <li><a href="#"> Twitter</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
