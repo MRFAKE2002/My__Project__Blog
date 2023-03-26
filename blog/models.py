@@ -87,3 +87,6 @@ class BlogPostComment(models.Model):
     def __str__(self):
         return f'user:{self.user} / post:{self.post}'
     
+    def get_absolute_url(self):
+        return reverse('blog:comment_create', args=[self.post_id])
+    
