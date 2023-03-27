@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     # Third party apps
     'jalali_date',
+    'rosetta',
     'ckeditor',
     
     # My apps

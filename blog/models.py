@@ -71,7 +71,7 @@ class BlogPostComment(models.Model):
     
     stars = models.CharField(_('Stars'), max_length=10, choices=STARS_CHOICES)
     
-    is_active = models.BooleanField(_('is_active'))
+    is_active = models.BooleanField(_('is_active'), default=True)
 
     published = models.DateTimeField(_('published'), default = timezone.now())
     
@@ -87,6 +87,7 @@ class BlogPostComment(models.Model):
     def __str__(self):
         return f'user:{self.user} / post:{self.post}'
     
+    
     def get_absolute_url(self):
-        return reverse('blog:comment_create', args=[self.post_id])
+        return reverse('blog:post_details', args=[ str(self.post.id)])
     

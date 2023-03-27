@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
+from django.urls import reverse_lazy
 
 from .models import BlogPost, BlogPostComment
 from .forms import BlogPostCommentForm
@@ -31,8 +32,12 @@ class PostDetailsView(generic.DeleteView):
 class BlogPostCommentView(generic.CreateView):
     model = BlogPostComment
     
-    form = BlogPostCommentForm
+    form_class = BlogPostCommentForm
     
+    # def get_success_url(self) -> str:
+    #     return reverse('blog:post_details', kwargs=[ self.post.id ])
+    
+            
     def form_valid(self, form):
         form = form.save(commit=False)
         
@@ -40,7 +45,9 @@ class BlogPostCommentView(generic.CreateView):
         
         post_id = int(self.kwargs['post_id'])
         
-        form.post = get_object_or_404(BlogPost, id=post_id)
+        post = get_object_or_404(BlogPost, id=post_id)
         
-        return form.save()
+        form.post = post
+        
+        return super().form_valid(form)
 
