@@ -35,19 +35,19 @@ class BlogPostCommentView(generic.CreateView):
     form_class = BlogPostCommentForm
     
     # def get_success_url(self) -> str:
-    #     return reverse('blog:post_details', kwargs=[ self.post.id ])
+    #     return reverse('blog:post_list')
     
             
     def form_valid(self, form):
-        form = form.save(commit=False)
+        comment = form.save(commit=False)
         
-        form.user = self.request.user
+        comment.user = self.request.user
         
         post_id = int(self.kwargs['post_id'])
         
         post = get_object_or_404(BlogPost, id=post_id)
         
-        form.post = post
-        
+        comment.post = post
+                
         return super().form_valid(form)
 
