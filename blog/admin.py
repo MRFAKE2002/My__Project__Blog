@@ -1,8 +1,21 @@
 from django.contrib import admin
 
-from .models import BlogPost, BlogPostComment
+from .models import Category, BlogPost, BlogPostComment
 
 from jalali_date.admin import ModelAdminJalaliMixin
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['position', 'title', 'status']
+    
+    list_filter = ['status']
+    
+    search_fields = ['title', 'slug']
+    
+    ordering = ['position']
+    
+    prepopulated_fields = {'slug':['title']}
 
 
 class CommentsInline(ModelAdminJalaliMixin, admin.TabularInline):
@@ -13,7 +26,7 @@ class CommentsInline(ModelAdminJalaliMixin, admin.TabularInline):
 
 @admin.register(BlogPost)
 class BlogPostAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = ['title', 'author', 'status', 'is_active']
+    list_display = ['title', 'author', 'status', 'string_category', 'is_active']
     
     list_filter = ['published', 'status', 'is_active']
     
@@ -26,6 +39,10 @@ class BlogPostAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     inlines = [
         CommentsInline,
     ]
+
+
+    def string_category(self, object):
+        return " , ".join([category.title for category in object.category.all()])
 
 
 

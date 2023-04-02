@@ -6,6 +6,26 @@ from django.contrib.auth import get_user_model
 
 from ckeditor.fields import RichTextField
 
+
+class Category(models.Model):
+    title = models.CharField(_('title'), max_length=200)
+    
+    slug = models.SlugField(_('slug'), unique=True, max_length=250)
+    
+    status = models.BooleanField(_('status'), default=True)
+
+    position = models.IntegerField(_('position'))
+
+    class Meta:
+        db_table = ''
+        managed = True
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categorys'
+    
+    def __str__(self):
+        return self.title
+
+
 class BlogPost(models.Model):
     
     """
@@ -22,6 +42,8 @@ class BlogPost(models.Model):
     title = models.CharField(_('title'), max_length=250)
     
     slug = models.SlugField(_('slug'), unique=True, max_length=250)
+
+    category = models.ManyToManyField(Category, verbose_name=_('Category'))
     
     content = RichTextField(_('content')) 
     
