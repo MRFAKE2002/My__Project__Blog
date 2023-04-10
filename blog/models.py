@@ -43,7 +43,7 @@ class BlogPost(models.Model):
     
     slug = models.SlugField(_('slug'), unique=True, max_length=250)
 
-    category = models.ManyToManyField(Category, verbose_name=_('Category'))
+    category = models.ManyToManyField(Category, verbose_name=_('Category'), related_name="categories")
     
     content = RichTextField(_('content')) 
     
@@ -69,8 +69,10 @@ class BlogPost(models.Model):
     def get_absolute_url(self):
         return reverse("blog:post_details", args=[ self.pk ])
 
-
-
+    def categories_Status_true(self):
+        return self.category.filter(status=True)
+    
+    
 class BlogPostComment(models.Model):
     
     """

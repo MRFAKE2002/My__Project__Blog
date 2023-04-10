@@ -1,4 +1,9 @@
+<!-- Django Tags -->
 {% load static %}
+{% load i18n %}
+
+<!-- My Tags -->
+{% load category_tags %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -26,7 +31,8 @@
     </head>
     <body>
 
-        {% include "header.html" %}
+        <!-- This is a tag for load header.html with categories title in navbar -->
+        {% categories_title %}
 
         {% comment %} 
         {% if messages %}
@@ -37,10 +43,6 @@
             </div>
         {% endif %}
         {% endcomment %}
-        
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
 
         {% block body %}
         

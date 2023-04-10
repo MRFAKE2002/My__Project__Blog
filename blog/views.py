@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic
 from django.urls import reverse_lazy
 
-from .models import BlogPost, BlogPostComment
+from .models import BlogPost, BlogPostComment, Category
 from .forms import BlogPostCommentForm
 
 class PostListView(generic.ListView):
@@ -14,7 +14,7 @@ class PostListView(generic.ListView):
     context_object_name = 'posts'
 
 
-class PostDetailsView(generic.DeleteView):
+class PostDetailsView(generic.DetailView):
     model = BlogPost
     
     template_name = 'blog/post_details.html'
@@ -51,3 +51,18 @@ class BlogPostCommentView(generic.CreateView):
                 
         return super().form_valid(form)
 
+
+# class CategoriesPostListView(generic.ListView):
+    
+#     model = Category
+    
+#     template_name = "blog/categories_post_list.html"
+    
+#     context_object_name = "category_posts"
+
+def categories_post_list(request, slug):
+    context = {
+        "categories_posts": get_object_or_404(Category, slug=slug, status=True) 
+    }
+    
+    return render(request, "blog/categories_post_list.html", context)

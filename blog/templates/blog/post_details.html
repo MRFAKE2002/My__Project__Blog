@@ -60,6 +60,14 @@
                         <div class="post-options">
                           <div class="row">
                             <div class="col-6">
+                              <ul class="post-tags">
+                                <li><i class="fa fa-tags"></i></li>
+                                {% for category in post.categories_Status_true.all %}
+                                  <li><a href="#">{{ category.title }}</a>,</li>
+                                {% endfor %}                              
+                              </ul>
+                            </div>
+                            <div class="col-6">
                               <ul class="post-share">
                                 <li><i class="fa fa-share-alt"></i></li>
                                 <li><a href="#">Facebook</a>,</li>
