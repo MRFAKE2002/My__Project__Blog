@@ -42,7 +42,7 @@ class BlogPostAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 
 
     def string_category(self, object):
-        return " , ".join([category.title for category in object.category.all()])
+        return " , ".join([category.title for category in object.categories_Status_true()])
 
 
 

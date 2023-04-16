@@ -7,7 +7,7 @@ from .forms import BlogPostCommentForm
 
 class PostListView(generic.ListView):
     # model = BlogPost
-    queryset = BlogPost.objects.filter(status='pu').order_by('published')
+    queryset = BlogPost.objects.published()
     
     template_name = 'blog/post_list.html'
     

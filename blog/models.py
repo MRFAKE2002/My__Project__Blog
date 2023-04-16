@@ -26,6 +26,12 @@ class Category(models.Model):
         return self.title
 
 
+# My manager class
+class PostManager(models.Manager):
+    def published(self):
+        return self.filter(status = 'pu').order_by('published')
+
+
 class BlogPost(models.Model):
     
     """
@@ -72,6 +78,8 @@ class BlogPost(models.Model):
     def categories_Status_true(self):
         return self.category.filter(status=True)
     
+    
+    object = PostManager()
     
 class BlogPostComment(models.Model):
     
