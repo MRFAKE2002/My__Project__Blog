@@ -7,7 +7,14 @@ from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
 
 
+class CategoryManager(models.Manager):
+    def active(self):
+        return self.filter(status=True)
+
+
 class Category(models.Model):
+    parent = models.ForeignKey('self', default=None, null=True, blank=True, related_name="children", verbose_name=_('category_parent'))
+    
     title = models.CharField(_('title'), max_length=200)
     
     slug = models.SlugField(_('slug'), unique=True, max_length=250)
@@ -21,9 +28,12 @@ class Category(models.Model):
         managed = True
         verbose_name = 'Category'
         verbose_name_plural = 'Categorys'
+        ordering = ('parent__id', 'position')
     
     def __str__(self):
         return self.title
+
+    object = CategoryManager()
 
 
 # My manager class
